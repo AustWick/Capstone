@@ -1,0 +1,33 @@
+<h1>You typed:</h1>
+<p>
+  <% @sentence.each do |element| %>
+    <% if element.word? %>
+      <a href="/elements/<%= element.id %>">
+    <% end %>
+
+    <%= element.content %>
+
+    <% if element.word? %>
+      </a>
+    <% end %>
+  <% end %>
+</p>
+<% @count = 0 %>
+<% @sentence.each do |element| %>
+  <% if element.word? %>
+    <% @count += 1 %>
+  <% end %>
+<% end %>
+
+<h3>Total word count: <%= @count %></h3>
+<h4>Nouns: <%= @noun %> </h4>
+<h4>Verbs: <%= @verb %> </h4>
+<h4>Adjectives: <%= @adjective %> </h4>
+<h4>Adverbs: <%= @adverb %> </h4>
+<h4>Prepositions: <%= @preposition %> </h4>
+<h4>Conjunctions: <%= @conjunction %> </h4>
+<h4>Determiners: <%= @determiner %> </h4>
+<h4>Pronouns: <%= @pronoun %> </h4>
+<h4>Other: <%= @other %></h4>
+
+<%= link_to "Delete document", "/documents/#{ @document.id }", method: :delete %>

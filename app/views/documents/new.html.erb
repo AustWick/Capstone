@@ -1,0 +1,11 @@
+<h1>New Document</h1>
+
+<%= form_tag '/documents/', method: :post do %>
+  <div>
+    Title: <input type="text" name="title"> 
+  </div>
+  <div>
+    Enter Text: <input type="text" name="content"> 
+  </div>
+<input type="submit" name="Enter">
+<% end %>

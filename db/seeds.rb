@@ -1,0 +1,1 @@
+User.create(email: "austin@awesome.com", username: "the writer", password: "password", password_confirmation: "password")

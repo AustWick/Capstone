@@ -1,0 +1,8 @@
+<%= @element.content %>
+
+<h4>Suggestion:</h4>
+<%= @element.suggest if @element.word? == true %>
+<%= @element.content.to_words if @element.content ==  /\d{1}[^\b]/ %>
+
+<h4>Tenses:</h4>
+<%= @element.type? %>

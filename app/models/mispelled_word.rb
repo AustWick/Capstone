@@ -1,0 +1,2 @@
+class MispelledWord < ApplicationRecord
+end

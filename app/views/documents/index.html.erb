@@ -1,0 +1,9 @@
+<h3>
+List of Documents:
+  </h3>
+
+<% @documents.each do |document| %>
+<div>
+  <%= link_to document.title, "/documents/#{document.id}" %>  
+</div>
+<% end %>

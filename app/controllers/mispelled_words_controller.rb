@@ -1,0 +1,2 @@
+class MispelledWordsController < ApplicationController
+end
