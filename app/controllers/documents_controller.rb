@@ -62,7 +62,6 @@ class DocumentsController < ApplicationController
       fl_array << fl_string
 
       fl_each = fl_array.join()
-      puts "#{fl_each}===================="
       if fl_each.start_with?("noun") == true
         @noun += 1
       elsif fl_each.start_with?("verb") == true

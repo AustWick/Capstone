@@ -10,4 +10,5 @@ Rails.application.routes.draw do
 
 
   get '/elements/:id' => 'elements#show'
+  patch '/elements/:id' => 'elements#update'
 end

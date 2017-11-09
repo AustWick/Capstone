@@ -27,10 +27,16 @@ HEADERS2 = {'X-User-Email' => ENV['API_EMAIL'], 'Authorization' => "Token token=
     elsif syn == ""
       return "No suggestions for this word."
     else
-      return syn
-      # syn.each do |s|
-      #   s
-      # end
+
+      # return syn.split(/(?![a-zA-Z\d'-])|(?<![a-zA-Z\d'-])/)
+      words = syn.split(/(?![a-zA-Z\d'-])|(?<![a-zA-Z\d'-])/)
+      word_array = []
+      words.each do |word|
+          if word =~ /[a-zA-Z\d'-]+/
+            word_array << word
+          end
+      end
+     return word_array
     end
   end
 
@@ -52,15 +58,7 @@ HEADERS2 = {'X-User-Email' => ENV['API_EMAIL'], 'Authorization' => "Token token=
     response = http.request(request)
     xml_doc  = Nokogiri::XML(response.body)
     fl = xml_doc.xpath("//fl") #replace the tagname with the desired content
-    puts "#{fl}================"
-    1.times do
-      return Verbs::Conjugator.conjugate content, :tense => :past
-    end
-    1.times do
-      return Verbs::Conjugator.conjugate content, :tense => :present
-    end
-    1.times do
-      return Verbs::Conjugator.conjugate content, :tense => :future
-    end
+      return Verbs::Conjugator.conjugate content, :plurality => :singular
+      return Verbs::Conjugator.conjugate content, :plurality => :plural
   end   
 end
