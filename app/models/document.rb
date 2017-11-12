@@ -4,6 +4,8 @@ class Document < ApplicationRecord
   belongs_to :user
   has_many :elements
 
+  require 'gingerice'
+
   def ye_olde
     url = "http://www.dictionaryapi.com/api/v1/references/dictionary/xml/#{content}?key=#{ENV['DICTIONARY_KEY']}"
     uri = URI.parse(url)
@@ -12,5 +14,16 @@ class Document < ApplicationRecord
     response = http.request(request)
     xml_doc  = Nokogiri::XML(response.body)
     syn = xml_doc.xpath("//syn").text #replace the tagname with the desired content
+  end
+
+  def cor
+    parsey = []
+    @sentence.each do |element|
+      parsey << element.content
+      parsey.map! {|a| a.to_s}.join
+      parser = Gingerice::Parser.new
+      parsed_response = parser.parse(@sentence.join)
+      return parsed_response["result"]
+    end  
   end
 end

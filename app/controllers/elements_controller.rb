@@ -2,7 +2,7 @@ class ElementsController < ApplicationController
 HEADERS = {'X-User-Email' => ENV['API_EMAIL'], 'Authorization' => "Token token=#{ENV['THESAURUS_KEY']}", "Accept" => 'thesaurus/json'}
   def show
     @element = Element.find(params[:id])
-    @words_array = @element.suggest unless @element.suggest == "No suggestions for this word."
+    @words_array = @element.suggest
   end
 
   def update

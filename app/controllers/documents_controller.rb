@@ -84,6 +84,15 @@ class DocumentsController < ApplicationController
         @other += 1
       end
     end
+
+    parsey = []
+    @sentence.each do |el|
+      parsey << el.content
+      parsey.map! {|a| a.to_s}.join
+      parser = Gingerice::Parser.new
+      parsed_response = parser.parse(parsey.map! {|a| a.to_s}.join)
+      @thing = parsed_response["result"]
+    end
   end
 
   def destroy

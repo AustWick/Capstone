@@ -1,11 +1,10 @@
 <%= @element.content %>
 
 <h4>Suggestion:</h4>
-<%= @element.suggest if @element.word? == true %>
 <%= @element.content.to_words if @element.content == /\d{1}[^\b]/ %>
 
-<% @words_array.each do |wa| %> --> #undefined method `each' for nil:NilClass <--
+<% @words_array.each do |wa| %> 
   <%= link_to "#{wa}", "/elements/#{@element.id}?word_to_replace=#{wa}", method: :patch %>
 <% end %>
-<h4>Plural:</h4>
+<h4>Example: (Not 100%)</h4>
 <%= @element.type? %>

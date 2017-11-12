@@ -1,6 +1,8 @@
 require 'net/http'
 require 'wavefile'
 require 'verbs'
+require 'engtagger'
+
 class Element < ApplicationRecord
 HEADERS = {'X-User-Email' => ENV['API_EMAIL'], 'Authorization' => "Token token=#{ENV['THESAURUS_KEY']}", "Accept" => 'thesaurus/json'}
 
@@ -23,9 +25,9 @@ HEADERS2 = {'X-User-Email' => ENV['API_EMAIL'], 'Authorization' => "Token token=
     sug = xml_doc.xpath("//suggestion").text #replace the tagname with the desired content
 
     if sug == "#{content}th"
-      return content.to_i.to_words
+      return ["#{content}".to_i.to_words, ""]
     elsif syn == ""
-      return "No suggestions for this word."
+      return ["No suggestions for this word.", ""]
     else
 
       # return syn.split(/(?![a-zA-Z\d'-])|(?<![a-zA-Z\d'-])/)
@@ -58,7 +60,6 @@ HEADERS2 = {'X-User-Email' => ENV['API_EMAIL'], 'Authorization' => "Token token=
     response = http.request(request)
     xml_doc  = Nokogiri::XML(response.body)
     fl = xml_doc.xpath("//fl") #replace the tagname with the desired content
-      return Verbs::Conjugator.conjugate content, :plurality => :singular
-      return Verbs::Conjugator.conjugate content, :plurality => :plural
+    return content.verb.conjugate :tense => :present, :person => :third, :plurality => :singular, :aspect => :perfect, :subject => true
   end   
 end
